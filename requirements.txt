@@ -1,0 +1,5 @@
+aigram== 3.20.0.post0
+asyncpg==0.30.0
+psycopg2-binary==2.9.10
+dotenv== 0.9.9
+
