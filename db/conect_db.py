@@ -1,12 +1,9 @@
-import psycopg2
+import sqlite3
 
-from .. config.settings import host, user, db_name, password
+def creation():
+    conn = sqlite3.connect("db_file")
+    cur = conn.cursor()
+    cur.execute("CREATE TABLE questions (question CHAR(255),answer CHAR(255))")
+    cur.close()
 
-def conect():
-    try:
-        conection = psycopg2.connect(host=host,
-                                     user=user,
-                                     password=password,
-                                     database=db_name)
-    except Exception as ex:
-        print("ex")
+creation()
