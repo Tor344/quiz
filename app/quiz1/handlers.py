@@ -3,8 +3,9 @@ from aiogram.types import Message
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
-from .fms_state import St
-from  .db_execute import *
+from quiz.app.quiz1.fms_state import St
+from quiz.app.quiz1.db_execute import *
+from quiz.app.quiz1.ckoreckt_answer import text_ckoreckt
 
 
 router = Router()
@@ -23,8 +24,7 @@ async def question(message: Message,state: FSMContext):
 async def question(message: Message,state: FSMContext):
     user_answer = message.text.lower()
     data = await state.get_data()
-    print(user_answer,data["answer"])
-    if user_answer !=data["answer"]:
+    if not(text_ckoreckt(user_answer,data["answer"])):
         await message.answer(f"Ответ неверный: {data["answer"]} ")
         return
     await state.clear()
