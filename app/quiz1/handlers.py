@@ -28,6 +28,7 @@ async def question(message: Message,state: FSMContext):
         await message.answer(f"Ответ неверный: {data["answer"]} ")
         return
     await state.clear()
+    up_point(message.from_user.id)
     await message.answer("Ответ верный")
 
 
