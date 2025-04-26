@@ -2,6 +2,7 @@ from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
+import random
 
 from quiz.app.quiz1.fms_state import St
 from quiz.app.quiz1.db_execute import *
@@ -14,7 +15,6 @@ router = Router()
 @router.message(Command("quiz_1"))
 async def question(message: Message,state: FSMContext):
     question, answer = get_random_question()
-    print(question)
     await state.update_data(answer=answer)
     await state.set_state(St.st_answer)
     await message.answer(question)
@@ -30,6 +30,15 @@ async def question(message: Message,state: FSMContext):
     await state.clear()
     await message.answer("Ответ верный")
 
+
+@router.message(F.text)
+async def question(message: Message,state: FSMContext):
+    if  random.random() > 0.1:
+        return
+    question, answer = get_random_question()
+    await state.update_data(answer=answer)
+    await state.set_state(St.st_answer)
+    await message.answer(question)
 
 
 
